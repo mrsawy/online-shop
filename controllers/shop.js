@@ -51,8 +51,7 @@ exports.getCart = (req, res, next) => {
           pageTitle: "Your Cart",
           products: products,
         });
-        
-      }else{
+      } else {
         res.render("shop/cart", {
           path: "/cart",
           pageTitle: "Your Cart",
@@ -106,9 +105,40 @@ exports.postCartDeleteProduct = (req, res, next) => {
 };
 //---------------------------------------------------------------------------------------
 exports.getOrders = (req, res, next) => {
+  req.user.getOrders({include:[`products`]}).then(orders=>{
+
+console.log(orders);
+
+   })
   res.render("shop/orders", {
     path: "/orders",
     pageTitle: "Your Orders",
+    orders:`:D`
+  });
+};
+
+//--common syntax mistake happens here so take care
+exports.postOrders = (req, res, next) => {
+  console.log(`:))))))))`);
+  req.user.getCart().then((cart) => {
+    cart.getProducts().then((products) => {
+
+
+      req.user.createOrder().then((order) => {
+
+        order
+          .addProducts(
+            products.map((product) => {
+              product.orderItems = {
+                quantity: product.dataValues.cartItems.dataValues.quantity,
+              };
+              return product;
+            })
+          )
+
+          .then((m) => res.redirect(`/orders`));
+      });
+    });
   });
 };
 
