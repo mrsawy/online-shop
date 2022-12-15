@@ -16,7 +16,7 @@
                                     </h1>
                                 </header>
                                 <div class="card__image">
-                                    <img src="<%= product.imageUrl %>" alt="<%= product.title %>">
+                                    <img src="/<%= product.imageUrl %>" alt="<%= product.title %>">
                                 </div>
                                 <div class="card__content">
                                     <h2 class="product__price">$
@@ -27,12 +27,15 @@
                                     </p>
                                 </div>
                                 <div class="card__actions">
-                                    <a href="/products/<%= product.id %>" class="btn">Details</a>
-                                    <%- include('../includes/add-to-cart.ejs', {product: product}) %>
+                                    <a href="/products/<%= product._id %>" class="btn">Details</a>
+                                    <% if (isAuthenticated) { %>
+                                        <%- include('../includes/add-to-cart.ejs', {product: product}) %>
+                                    <% } %>
                                 </div>
                             </article>
                             <% } %>
                     </div>
+                    <%- include('../includes/pagination.ejs', {currentPage: currentPage, nextPage: nextPage, previousPage: previousPage, lastPage: lastPage, hasNextPage: hasNextPage, hasPreviousPage: hasPreviousPage}) %>
                     <% } else { %>
                         <h1>No Products Found!</h1>
                         <% } %>
