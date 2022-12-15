@@ -127,11 +127,19 @@ app.use(errorController.get404);
 //----------error handling function
 
 app.use((error, req, res, next) => {
+  let tryAddPost = false ;
+  if(!req.session.isLoggedIn){
+    tryAddPost = true ;
+    req.session.isLoggedIn =true ;
+  }
   console.log(error)
   res.status(500).render('500', {
     pageTitle: 'Error!',
     path: '/500',
-    isAuthenticated: req.session.isLoggedIn
+    isAuthenticated: req.session.isLoggedIn,
+    massage : `Can't add images in products because it's a experiment deployment server
+    if you want to use this feature fork the source code and run on your localhost`,
+    tryAddPost:tryAddPost
   });
 });
 
