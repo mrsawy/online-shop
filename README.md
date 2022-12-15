@@ -1,5 +1,5 @@
 ![](http://imgur.com/t3teAxi.png)
-### :handbag: A node js server-side foucesed E-commerce app using EJS for templating engine && mongo db as a database
+### :handbag: A node js server-side focused E-commerce app using EJS for templating engine && mongo db as a database
 
 
 ## Deploy
